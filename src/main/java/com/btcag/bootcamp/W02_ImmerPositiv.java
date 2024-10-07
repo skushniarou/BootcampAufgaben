@@ -8,6 +8,9 @@ public class W02_ImmerPositiv {
         System.out.println("Bitte geben Sie einen Zahl ein: ");
         int x = Integer.parseInt(sc.nextLine());
 
-
+        if (x < 0) {
+            x = x * -1;
+        }
+        System.out.println("Unsere Zahl " + x + " ist positiv :)");
     }
 }
