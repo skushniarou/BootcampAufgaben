@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class W02_VierGewinnt {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        boolean playerTurn = true;
 
         // Spielername eingeben
         String spieler1 = getValidPlayerName(scanner, "Spieler 1");
@@ -23,8 +24,12 @@ public class W02_VierGewinnt {
             }
         }
 
-        //Spielfeld Ausgeben
-        updatePlayfield(spielFeld);
+        //Spielfeld Aktualisieren
+        while (true) {
+            updatePlayfield(spielFeld);
+            playerTurn(scanner,playerTurn,spielFeld);
+            playerTurn = changePlayerTurn(playerTurn);
+        }
     }
 
     private static String getValidPlayerName(Scanner scanner, String spieler) {
@@ -51,6 +56,48 @@ public class W02_VierGewinnt {
             }
             System.out.println();
         }
+    }
+
+    public static String[][] playerTurn (Scanner scanner, boolean playerTurn, String [][] spielFeld) {
+        int spalte;
+        int i = 0;
+        while (true) {
+            try {
+                System.out.println("In Welche Spalte sollte Disk fallen?");
+                spalte = Integer.parseInt(scanner.nextLine());
+                while (true) {
+                    if ((!spielFeld[i][spalte-1].equals("[ ]") || i == 5) ){
+                        break;
+                    }
+                    i++;
+                }
+                if (!spielFeld[i][spalte-1].equals("[ ]")) {
+                    if (i - 1 < 0){
+                        System.out.println("Diese Eingabe ist ungültig, geben Sie bitte neu ein!");
+                        System.out.println();
+                        break;
+                    } else{
+                        i--;
+                    }
+                }
+
+                if (playerTurn == true){
+                    spielFeld[i][spalte-1] = "[X]";
+                } else {
+                    spielFeld[i][spalte-1] = "[O]";
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println("Unbekanntes Fehler aufgetreten, bitte Programm neu starten");
+                i--;
+            }
+        }
+        return spielFeld;
+    }
+
+    public static boolean changePlayerTurn (boolean playerTurn) {
+        playerTurn = !playerTurn;
+        return playerTurn;
     }
 
 }
