@@ -3,9 +3,10 @@ package com.btcag.bootcamp;
 import java.util.Scanner;
 
 public class W02_VierGewinnt {
+    static boolean playerTurn = true;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        boolean playerTurn = true;
+
 
         // Spielername eingeben
         String spieler1 = getValidPlayerName(scanner, "Spieler 1");
@@ -28,7 +29,6 @@ public class W02_VierGewinnt {
         while (true) {
             updatePlayfield(spielFeld);
             playerTurn(scanner,playerTurn,spielFeld);
-            playerTurn = changePlayerTurn(playerTurn);
         }
     }
 
@@ -80,24 +80,21 @@ public class W02_VierGewinnt {
                         i--;
                     }
                 }
-
                 if (playerTurn == true){
                     spielFeld[i][spalte-1] = "[X]";
                 } else {
                     spielFeld[i][spalte-1] = "[O]";
                 }
+                changePlayerTurn();
                 break;
             } catch (Exception e) {
                 System.out.println("Unbekanntes Fehler aufgetreten, bitte Programm neu starten");
-                i--;
             }
         }
         return spielFeld;
     }
 
-    public static boolean changePlayerTurn (boolean playerTurn) {
+    public static void changePlayerTurn () {
         playerTurn = !playerTurn;
-        return playerTurn;
     }
-
 }
