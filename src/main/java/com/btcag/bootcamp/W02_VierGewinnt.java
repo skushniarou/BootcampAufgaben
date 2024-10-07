@@ -4,13 +4,15 @@ import java.util.Scanner;
 
 public class W02_VierGewinnt {
     static boolean playerTurn = true;
+    static String currPlayer = "";
+    static String spieler1;
+    static String spieler2;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-
         // Spielername eingeben
-        String spieler1 = getValidPlayerName(scanner, "Spieler 1");
-        String spieler2 = getValidPlayerName(scanner, "Spieler 2");
+        spieler1 = getValidPlayerName(scanner, "Spieler 1");
+        spieler2 = getValidPlayerName(scanner, "Spieler 2");
 
         // Ausgabe von Namen
         System.out.println("Registrierte Spieler:");
@@ -29,7 +31,10 @@ public class W02_VierGewinnt {
         while (true) {
             updatePlayfield(spielFeld);
             playerTurn(scanner,playerTurn,spielFeld);
+            winConditionCheck(spielFeld);
         }
+
+
     }
 
     private static String getValidPlayerName(Scanner scanner, String spieler) {
@@ -96,5 +101,67 @@ public class W02_VierGewinnt {
 
     public static void changePlayerTurn () {
         playerTurn = !playerTurn;
+    }
+
+    public static String winConditionCheck (String [][] spielFeld) {
+
+        if (playerTurn == true) {
+            currPlayer = spieler2;
+        }   else {
+            currPlayer = spieler1;
+        }
+        int zeilen = spielFeld.length;         // Anzahl der Zeilen im Array
+        int spalten = spielFeld[0].length;
+
+        // Horizontal prüfen
+        for (int row = 0; row < zeilen; row++) {
+            for (int col = 0; col <= spalten - 4; col++) {
+                String kaestchen = spielFeld[row][col];
+                if (kaestchen != "[ ]"  && kaestchen == spielFeld[row][col + 1] && kaestchen == spielFeld[row][col + 2] && kaestchen == spielFeld[row][col + 3]) {
+                    updatePlayfield(spielFeld);
+                    System.out.println("Und Gewinner ist... " + currPlayer + "!!!");
+                    System.exit(0);
+                }
+            }
+        }
+
+        // Vertikal prüfen
+        for (int col = 0; col < spalten; col++) {
+            for (int row = 0; row <= zeilen - 4; row++) {
+                String kaestchen = spielFeld[row][col];
+                if (kaestchen != "[ ]" && kaestchen == spielFeld[row + 1][col] && kaestchen == spielFeld[row + 2][col] && kaestchen == spielFeld[row + 3][col]) {
+                    updatePlayfield(spielFeld);
+                    System.out.println("Und Gewinner ist... " + currPlayer + "!!!");
+                    System.exit(0);
+                }
+            }
+        }
+
+        // Diagonal (links oben nach rechts unten) prüfen
+        for (int row = 0; row <= zeilen - 4; row++) {
+            for (int col = 0; col <= spalten - 4; col++) {
+                String kaestchen = spielFeld[row][col];
+                if (kaestchen != "[ ]" && kaestchen == spielFeld[row + 1][col + 1] && kaestchen == spielFeld[row + 2][col + 2] && kaestchen == spielFeld[row + 3][col + 3]) {
+                    updatePlayfield(spielFeld);
+                    System.out.println("Und Gewinner ist... " + currPlayer + "!!!");
+                    System.exit(0);
+                }
+            }
+        }
+
+        // Diagonal (rechts oben nach links unten) prüfen
+        for (int row = 0; row <= zeilen - 4; row++) {
+            for (int col = 3; col < spalten; col++) {
+                String kaestchen = spielFeld[row][col];
+                if (kaestchen != "[ ]" && kaestchen == spielFeld[row + 1][col - 1] && kaestchen == spielFeld[row + 2][col - 2] && kaestchen == spielFeld[row + 3][col - 3]) {
+                    updatePlayfield(spielFeld);
+                    System.out.println("Und Gewinner ist... " + currPlayer + "!!!");
+                    System.exit(0);
+                }
+            }
+        }
+
+        // Falls kein Gewinner gefunden wurde
+        return "Kein Gewinner noch...";
     }
 }
