@@ -60,18 +60,38 @@ public class W03_QueueList implements W03_QueueListInterface{
         }
     }
 
-    @Override
-    public void pushLast(int i) {
 
+    @Override
+    public int pushFront(int i) {
+        //ToDo
+        int sizeBefore = array.length;
+        if (array[array.length-1] != 0){
+            doubleArraySize();
+        }
+        int[] newArray = new int[array.length];
+        System.arraycopy(array, 1, newArray, 1, array.length);
+        newArray[newArray.length - 1] = i;
+        array = newArray;
+        return 0;
     }
 
     @Override
-    public void pushFront(int i) {
-
+    public int pushLast(int i) {
+        //ToDo
+        int sizeBefore = array.length;
+        if (array[array.length-1] != 0){
+            doubleArraySize();
+        }
+        int[] newArray = new int[array.length];
+        System.arraycopy(array, 0, newArray, 0, array.length);
+        newArray[sizeBefore] = i;
+        array = newArray;
+        return 0;
     }
 
     @Override
     public int get(int index) {
+        //ToDo
         return 0;
     }
 }
