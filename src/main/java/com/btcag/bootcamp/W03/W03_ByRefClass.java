@@ -1,4 +1,4 @@
-package com.btcag.bootcamp;
+package com.btcag.bootcamp.W03;
 
 public class W03_ByRefClass {
     static int value;
