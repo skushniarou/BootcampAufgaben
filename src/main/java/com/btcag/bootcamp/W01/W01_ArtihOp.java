@@ -1,4 +1,4 @@
-package com.btcag.bootcamp;
+package com.btcag.bootcamp.W01;
 
 public class W01_ArtihOp {
     public static void main(String[] args) {

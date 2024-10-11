@@ -16,6 +16,7 @@ public class W03_QueueListMain {
         System.out.println("2 - Gibt das letzte Object zurück und entfernt dieses von den Daten");
         System.out.println("3 - Fügt dein Object den Daten am Anfang hinzu");
         System.out.println("4 - Fügt dein Object den Daten am Ende hinzu");
+        System.out.println("5 - Objekt auf bestimmte Stelle auswählen");
 
         while (sc.hasNextLine()) {
             String input = sc.nextLine();
@@ -34,6 +35,9 @@ public class W03_QueueListMain {
                     System.out.print("Geben Sie eine Zahl ein: ");
                     list.pushLast(Integer.parseInt(sc.nextLine()));
                     break;
+                case "5":
+                    System.out.print("Geben Sie eine Zahl ein: ");
+                    list.get(Integer.parseInt(sc.nextLine()));
             }
             list.printArray();
         }

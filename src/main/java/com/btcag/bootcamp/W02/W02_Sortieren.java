@@ -1,4 +1,4 @@
-package com.btcag.bootcamp;
+package com.btcag.bootcamp.W02;
 
 public class W02_Sortieren {
     public static void main(String[] args) {

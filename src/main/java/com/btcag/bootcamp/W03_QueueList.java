@@ -5,9 +5,11 @@ import java.util.Random;
 public class W03_QueueList implements W03_QueueListInterface{
 
     private int[] array;
+    private int size;
 
     public W03_QueueList(){
         this.array = new int[5];
+        this.size = 5;
     }
 
     public void fillArray() {
@@ -20,6 +22,9 @@ public class W03_QueueList implements W03_QueueListInterface{
     public void printArray() {
         for (int array : array) {
             System.out.print(array + " ");
+        }
+        if (array.length == 0) {
+            System.out.print("Array ist leer");
         }
         System.out.println();
     }
@@ -41,6 +46,7 @@ public class W03_QueueList implements W03_QueueListInterface{
             System.out.println("Erstes Element in Array war: " + temp);
             System.arraycopy(array, 1, newArray, 0, array.length - 1);
             array = newArray;
+            size--;
             return temp;
         }
     }
@@ -56,6 +62,7 @@ public class W03_QueueList implements W03_QueueListInterface{
             System.out.println("Letztes Element in Array war: " + temp);
             System.arraycopy(array, 0, newArray, 0, array.length - 1);
             array = newArray;
+            size--;
             return temp;
         }
     }
@@ -63,35 +70,34 @@ public class W03_QueueList implements W03_QueueListInterface{
 
     @Override
     public int pushFront(int i) {
-        //ToDo
-        int sizeBefore = array.length;
-        if (array[array.length-1] != 0){
+        if (array.length == 0){
+            array = new int[array.length + 1];
+        } else if (size == array.length) {
             doubleArraySize();
         }
-        int[] newArray = new int[array.length];
-        System.arraycopy(array, 1, newArray, 1, array.length);
-        newArray[newArray.length - 1] = i;
-        array = newArray;
-        return 0;
+        System.arraycopy(array, 0, array, 1, size);
+        array[0] = i;
+        size++;
+        System.out.println("Zahl " + i + " wurde am Anfang des Arrays hinzugefügt.");
+        return i;
     }
 
     @Override
     public int pushLast(int i) {
-        //ToDo
-        int sizeBefore = array.length;
-        if (array[array.length-1] != 0){
+        if (array.length == 0){
+            array = new int[array.length + 1];
+        } else if (size == array.length){
             doubleArraySize();
         }
-        int[] newArray = new int[array.length];
-        System.arraycopy(array, 0, newArray, 0, array.length);
-        newArray[sizeBefore] = i;
-        array = newArray;
-        return 0;
+        array[size] = i;
+        size++;
+        return i;
     }
 
     @Override
     public int get(int index) {
-        //ToDo
-        return 0;
+        int object = array[index-1];
+        System.out.println("Objekt " + object + " wurde zurück gegeben");
+        return object;
     }
 }
